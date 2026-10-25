@@ -14,4 +14,4 @@ public class Konstanta{
     private Konstanta() {
         // Mencegah instansiasi kelas Konstanta atau Mencegah pembuatan objek dari kelas Konstanta
     }
-} 
+}
