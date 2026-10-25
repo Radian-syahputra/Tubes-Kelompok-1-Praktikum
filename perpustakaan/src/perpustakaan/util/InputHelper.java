@@ -14,7 +14,7 @@ public final class InputHelper {
         return scanner.nextLine();
     }
 
-    // Method Membaca Pilihan menu dari pengguna
+    // Method Membaca Pilihan menu dari pengguna -> contohnya pilihan menu 1-6
     public static int bacaPilihan(int min, int max) {
         int angka = min - 1; 
         do {
@@ -30,4 +30,22 @@ public final class InputHelper {
         } while (angka < min || angka > max);
         return angka;
     }
+
+    public static int bacaAngkaPositif(String pesan) {
+        int angka = 0;
+
+        do {
+            try {
+                angka = Integer.parseInt(bacaString(pesan).trim());
+
+                if (angka <= 0) {   
+                    System.out.println("Input tidak valid. Silakan masukkan angka positif.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Input tidak valid. Silakan masukkan angka.");
+            }
+        }while (angka <= 0);
+        return angka;
+    }
 }
+
