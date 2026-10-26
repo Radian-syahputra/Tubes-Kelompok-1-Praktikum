@@ -14,7 +14,7 @@ public final class AnggotaService {
             if (DataPerpustakaan.idAnggota[i].equals(id)) {
                 return i;
             }
-        }
+        } 
         return -1; // Anggota tidak ditemukan
     }
 
