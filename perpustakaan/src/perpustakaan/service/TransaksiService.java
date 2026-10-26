@@ -73,4 +73,11 @@ public final class TransaksiService {
         DataPerpustakaan.jumlahPeminjaman++;
 
     }
+
+    public static int hitungDenda(int hariKembali, int jatuhTempo) {
+        if (hariKembali >= jatuhTempo) {
+            return (hariKembali - jatuhTempo) * Konstanta.DENDA_PER_HARI;
+        }
+        return 0;
+    }
 }
