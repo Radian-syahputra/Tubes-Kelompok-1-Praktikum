@@ -62,6 +62,5 @@ public class DataPerpustakaan {
 
         jumlahAnggota = 3;
     }
-
     
 }
