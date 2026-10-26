@@ -74,10 +74,57 @@ public final class TransaksiService {
 
     }
 
+    // Method untuk menghitung denda berdasarkan hari kembali dan jatuh tempo
     public static int hitungDenda(int hariKembali, int jatuhTempo) {
         if (hariKembali >= jatuhTempo) {
             return (hariKembali - jatuhTempo) * Konstanta.DENDA_PER_HARI;
         }
         return 0;
+    }
+
+    // Method untuk memproses pengembalian buku
+    public static void prosesKembaliBuku() {    
+        int idTransaksi = -1;
+
+        // Baca ID Transaksi dari pengguna
+        try {
+            idTransaksi = Integer.parseInt(InputHelper.bacaString("Masukkan ID Transakasi : ").trim());
+        }catch (NumberFormatException e) {
+            System.out.println("Input tidak valid. Silakan masukkan angka.");
+            return;
+        }
+
+        // Validasi ID Transaksi 
+        if (idTransaksi < 0 || idTransaksi >= DataPerpustakaan.jumlahPeminjaman) {
+            System.out.println("ID Transaksi tidak valid.");
+            return;
+        }
+        if (DataPerpustakaan.dataPinjam[idTransaksi][4] == 0 ) {
+            System.out.println("Buku sudah dikembalikan.");
+            return;
+        }
+
+        // Baca Hari Kembali dari pengguna dan hitung denda jika ada
+        int hariKembali = InputHelper.bacaAngkaPositif("Masukkan Hari Kembali : ");
+        int denda = hitungDenda(hariKembali, DataPerpustakaan.dataPinjam[idTransaksi][3]);
+
+        // Ambil Indeks Dari Transaksi
+        int idxAnggota = DataPerpustakaan.dataPinjam[idTransaksi][0];
+        int idxBuku = DataPerpustakaan.dataPinjam[idTransaksi][1];
+
+        // Perbaruhi status transaksi, stok buku, dan jumlah pinjaman anggota
+        DataPerpustakaan.dataPinjam[idTransaksi][4] = 0; // Status sudah kembali
+        DataPerpustakaan.stockBuku[idxBuku]++;
+        DataPerpustakaan.jumlahPinjamanAnggota[idxAnggota]--;
+
+        // Cetak Hasil Transaksi Pengembalian
+        System.out.println("========================== Transaksi Pengembalian Berhasil ==========================");
+        System.out.println("ID Transaksi : " + idTransaksi);
+        System.out.println("ID Buku : " + DataPerpustakaan.idBuku[idxBuku]);
+        System.out.println("Nama Anggota : " + DataPerpustakaan.namaAnggota[idxAnggota]);
+        System.out.println("Hari Kembali : " + hariKembali);
+        System.out.println("Denda : Rp. " + denda);
+        System.out.println("==================================================================================");
+
     }
 }

@@ -14,7 +14,7 @@ public class DataPerpustakaan {
     public static int[] jumlahPinjamanAnggota = new int[Konstanta.MAKS_ANGGOTA];
     public static int jumlahAnggota = 0;
 
-    // ===== DATA TRANSAKSI =====
+    // ===== DATA TRANSAKSI YANG DI DATA PINJAM =====
     // Tiap baris = 1 transaksi
     // kolom 0 = indeks anggota
     // kolom 1 = indeks buku
